@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+
+    <title>Radicle</title>
+
+    <meta property="og:title" content="Radicle" />
+    <meta property="og:locale" content="en_US" />
+    <meta name="description" content="Liquidity is the key" />
+    <meta property="og:description" content="Liquidity is the key" />
+    <link rel="canonical" href="https://lbp.radicle.xyz/" />
+    <meta property="og:url" content="https://lbp.radicle.xyz/" />
+    <meta property="og:site_name" content="Radicle" />
+    <meta name="twitter:card" content="LBP Info" />
+    <meta property="twitter:title" content="Radicle" />
+
+    <link rel="shortcut icon" type="image/x-icon" href="favicon.png" />
+    <link rel="stylesheet" href="/main.css" />
+  </head>
+  <body class="crt">
+    <div class="wrapper">
+      <div id="timer"></div>
+      <h2 class="title">
+        <div class="logo"></div>
+        RADICLE COMMUNITY HARVEST
+      </h2>
+      <div class="graph">
+        <div class="startend">
+          <div class="start"></div>
+          <div class="end"></div>
+        </div>
+        <div id="price-prediction"></div>
+        <div class="legend">
+          <div>
+            <span class="low">PRICE</span>
+            movement if nobody buys
+          </div>
+          <div class="startend">
+            <div class="start" id="sold"></div>
+            <div class="end" id="raised"></div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="stuff">
+      <h2>! WARNING ! <br /></h2>
+      <div class="disclaimer">
+        Don't transfer xHDX tokens to any contract wallet or exchange. After the
+        LBP concludes, balance transfers of xHDX will be frozen forever. You
+        will need to verify that you are the owner of Ethereum address used to
+        get xHDX. If you use exchange wallet or smart contract wallet you won't
+        be able to do this and lose access to the HDX!
+      </div>
+      <div class="get">
+        xHDX :
+        <div id="price">? DAI</div>
+      </div>
+      <div class="buttons">
+        We recommend reading through our resources to get familiar with the
+        project
+        <div class="footer">
+          <a href="https://radicle.xyz" target="blank">radicle.xyz</a>
+          <a href="https://hydradx.substack.com/p/hydradx-faq" target="blank">LBP FAQ</a>
+          <a
+            href="https://hydradx.substack.com/p/hydradx-distribution-bootstrapping"
+            target="blank"
+            >HDX DISTRIBUTION</a
+          >
+          <a
+            href="https://hydradx.substack.com/p/lbp-announcement"
+            target="blank"
+            >LBP ANNOUNCEMENT</a
+          >
+          <a
+            href="https://hydradx.substack.com/p/lbp-price-discovery"
+            target="blank"
+            >LBP PRICE DISCOVERY</a
+          >
+          <a
+            href="https://pools.balancer.exchange/#/pool/0xf014fc5d0f02c19d617a30a745ab86a8ca32c92f/"
+            target="blank"
+            >BALANCER POOL</a
+          >
+        </div>
+      </div>
+    </div>
+
+    <script src="https://cdn.ethers.io/lib/ethers-5.0.umd.min.js"></script>
+    <script src="https://unpkg.com/lightweight-charts/dist/lightweight-charts.standalone.production.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.29.1/moment.min.js"></script>
+    <script src="/main.js"></script>
+  </body>
+</html>
