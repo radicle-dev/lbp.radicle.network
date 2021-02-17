@@ -1,7 +1,7 @@
 //@ts-check
 
-const defaultDiagramWidth = 900;
-const defaultDiagramHeight = 400;
+const defaultDiagramWidth = 1240;
+const defaultDiagramHeight = 480;
 const network = 'homestead';
 const provider = new ethers.providers.FallbackProvider([
   new ethers.providers.EtherscanProvider(network, 'C9KKK6QF3REYE2UKRZKF5GFB2R2FQ5BWRE'),
@@ -356,7 +356,7 @@ async function main() {
       },
       layout: {
         textColor: "#FF55FF",
-        backgroundColor: "#13202A",
+        backgroundColor: "transparent",
       },
       timeScale: {
         lockVisibleTimeRangeOnResize: true,
