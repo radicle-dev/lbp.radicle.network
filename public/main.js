@@ -269,7 +269,7 @@ function updatePrice(swap) {
   balances = balances.map((b, i) => b + deltas[i]);
   swaps.push(swap);
   priceEl.innerHTML = `${price.toFixed(4)} DAI`;
-  soldEl.innerHTML = `${Math.round((params.start.balances[0]-balances[0])/params.start.balances[0]*100)}% xHDX sold`;
+  soldEl.innerHTML = `${Math.round((params.start.balances[0]-balances[0])/params.start.balances[0]*100)}% RAD sold`;
   raisedEl.innerHTML = `${formatMoney(balances[1] - params.start.balances[1], 0)} DAI raised`;
   if (!init) {
     const predict = new URLSearchParams(window.location.search).get('predict');
@@ -355,8 +355,8 @@ async function main() {
         timeFormatter: timestamp => moment.unix(timestamp).format('D.M. H:mm')
       },
       layout: {
-        textColor: "#F653A2",
-        backgroundColor: "#0D106E",
+        textColor: "#FF55FF",
+        backgroundColor: "#13202A",
       },
       timeScale: {
         lockVisibleTimeRangeOnResize: true,
@@ -383,10 +383,10 @@ async function main() {
   series.chart = chart;
 
   series.candle = chart.addCandlestickSeries({
-    upColor: "#5EAFE1",
-    wickUpColor: "#5EAFE1",
-    downColor: "#F653A2",
-    wickDownColor: "#F653A2",
+    upColor: "#53DB53",
+    wickUpColor: "#53DB53",
+    downColor: "#FF55FF",
+    wickDownColor: "#FF55FF",
     borderVisible: false,
     wickVisible: true,
   });
@@ -395,7 +395,7 @@ async function main() {
     lineStyle: 1,
     priceLineVisible: false,
     lastValueVisible: false,
-    color: "#F653A2",
+    color: "#FF55FF",
     lineWidth: 2,
   });
 
@@ -403,7 +403,7 @@ async function main() {
     lineStyle: 1,
     priceLineVisible: false,
     lastValueVisible: false,
-    color: "#5EAFE1",
+    color: "#53DB53",
     lineWidth: 2,
   });
 
@@ -464,7 +464,7 @@ async function main() {
   })
   bpool.on('LOG_SWAP', async (id, tokenIn, tokenOut, tokenAmountIn, tokenAmountOut, { blockNumber }) => {
     const [tokenInSym, tokenOutSym] = [tokenIn, tokenOut]
-        .map(token => token.toLowerCase() === daiAddress.toLowerCase() ? 'DAI' : 'xHDX');
+        .map(token => token.toLowerCase() === daiAddress.toLowerCase() ? 'DAI' : 'RAD');
     if (tokenIn.toLowerCase() === daiAddress.toLowerCase()) {
       [tokenAmountIn, tokenAmountOut] = [
         ethers.utils.formatUnits(tokenAmountIn),
