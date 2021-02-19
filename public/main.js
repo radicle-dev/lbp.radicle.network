@@ -169,7 +169,7 @@ async function fetchPool() {
     .then((res) => res.data.pools[0]);
 }
 
-async function fetchSwaps(skip = 0) {
+async function fetchSwaps(lastTimestamp) {
   return fetch(graphApi, {
     method: "POST",
     headers: {
@@ -179,7 +179,8 @@ async function fetchSwaps(skip = 0) {
       query: `
                 query {
                   pools(where: {id: "${poolAddress}"}) {
-                    swaps(first: 1000, skip: ${skip}, orderBy: timestamp, orderDirection: asc) {
+                    swaps(first: 1000, orderBy: timestamp, orderDirection: asc,
+                    where: { timestamp_gte: ${lastTimestamp} }) {
                       timestamp
                       id
                       tokenIn
@@ -197,7 +198,7 @@ async function fetchSwaps(skip = 0) {
             `,
     }),
   })
-    .then((res) => res.json())
+    .then(async (res) => res.json())
     .then((res) => res.data.pools[0].swaps.map(calculateSwap));
 }
 
@@ -216,13 +217,14 @@ function calculateSwap(swap) {
 }
 
 async function fetchAllSwaps(count) {
-  let i = 0;
-  let calls = [];
-  do {
-    calls.push(fetchSwaps(i));
-    i += 1000;
-  } while (i < count);
-  return Promise.all(calls).then((calls) => calls.flat());
+  let lastTimestamp = 0;
+  let rets = [];
+  for (let i = 0; i < count; i += 1000) {
+    const swaps = await fetchSwaps(lastTimestamp);
+    rets.push(swaps);
+    lastTimestamp = swaps[swaps.length - 1].timestamp;
+  }
+  return rets.flat();
 }
 
 function predictPrice(rate = 0) {
@@ -414,6 +416,7 @@ async function main() {
   });
 
   const pool = await fetchPool();
+  console.log(pool)
   const [swaps, lastPrice] = await Promise.all([
       fetchAllSwaps(Number(pool.swapsCount)),
       null //getLatestPrice()
