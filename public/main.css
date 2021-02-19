@@ -63,15 +63,6 @@ strong {
   font-weight: 800;
 }
 
-/* specific styles */
-/* .wrapper {
-  max-width: 77.5rem;
-  padding: 2rem;
-  margin: 0;
-  position: absolute;
-  background: black;
-} */
-
 header {
   display: flex;
   flex-direction: column;
@@ -157,7 +148,7 @@ header p {
 }
 
 .graph {
-  width: 48rem;
+  width: 1240px;
   position: relative;
   margin: 0 auto;
 }
@@ -178,12 +169,7 @@ header p {
   font-family: Druk X;
   font-size: 20rem;
   line-height: 0.95;
-}
-
-.rad {
-  color: var(--color-foreground-level-6);
-  font-size: 36px;
-  font-weight: 800;
+  opacity: 0.2;
 }
 
 .low {
