@@ -3,7 +3,6 @@
 
   let socket = new WebSocket(socketUrl);
   socket.addEventListener("close", () => {
-    console.log('foo');
     const attemptTimeout = 100;
     const disconnectedTimeout = 3000;
     const maxAttempts = Math.round(disconnectedTimeout / attemptTimeout);
@@ -25,7 +24,7 @@
         location.reload();
       });
     };
-    
+
     reload();
   });
 })();

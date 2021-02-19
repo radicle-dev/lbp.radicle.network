@@ -5,13 +5,22 @@
 
 /* general styles */
 
+::-moz-selection {
+  background: rgba(255, 255, 0, 0.75);
+  color: black;
+}
+::selection {
+  background: rgba(255, 255, 0, 0.75);
+  color: black;
+}
+
 html {
   width: 100%;
   height: 100%;
   background: black;
   color: var(--color-secondary);
-  line-height: 1.5em;
-  font-size: 1.2em;
+  line-height: 1.4;
+  font-size: 16px;
   font-style: normal;
   font-weight: normal;
   text-rendering: optimizeSpeed;
@@ -37,18 +46,20 @@ button {
   background-color: var(--color-primary);
   color: var(--color-foreground);
   text-decoration: none;
-  padding: 0.75rem 1em;
-  margin: 0.5rem 0.25em;
+  padding: 0.75rem 1rem;
+  margin: 0.5rem 0.25rem;
   border-radius: 0.5rem;
   vertical-align: middle;
   white-space: nowrap;
   font-weight: 600;
+  margin-top: 1rem;
 }
 
 button:hover {
   color: var(--color-foreground);
-  background-color: var(--color-primary-level-2);
+  background-color: var(--color-positive);
   outline: none;
+  cursor: pointer;
 }
 
 button:active {
@@ -59,8 +70,25 @@ button:visited {
   color: var(--color-primary-level-4);
 }
 
+a {
+  color: var(--color-secondary);
+}
+
+a:hover {
+  cursor: pointer;
+  text-decoration: underline;
+}
+a:active {
+  color: var(--color-secondary-level-2);
+}
+
 strong {
   font-weight: 800;
+  color: var(--color-foreground);
+}
+
+hr {
+  border: 1px solid var(--color-foreground-level-3);
 }
 
 header {
@@ -69,7 +97,7 @@ header {
   justify-content: center;
   align-items: center;
   text-align: center;
-  max-width: 44rem;
+  max-width: 48rem;
   margin: 0 auto;
 }
 
@@ -141,6 +169,7 @@ header svg.line {
   width: 100vw;
   position: absolute;
   mix-blend-mode: difference;
+  pointer-events: none;
 }
 
 header p {
@@ -150,7 +179,7 @@ header p {
 .graph {
   width: 1240px;
   position: relative;
-  margin: 0 auto;
+  margin: 2rem auto;
 }
 
 .ticker {
@@ -192,12 +221,36 @@ header p {
   text-transform: uppercase;
 }
 
+#faq,
+#about,
 #disclaimer {
   max-width: 42rem;
   margin: 0 auto;
+}
+
+h3 {
+  font-family: var(--font-stack);
+  font-weight: 800;
+  font-size: 0.75rem;
+  color: var(--color-foreground-level-4);
+  margin-bottom: 2rem;
+}
+
+#faq p {
+  margin-bottom: 1rem;
+}
+
+#disclaimer {
   text-align: center;
 }
 
 #disclaimer p {
   padding: 4rem 0;
+}
+
+.spinner {
+  padding-top: 2rem;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }

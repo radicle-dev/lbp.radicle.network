@@ -37,6 +37,8 @@ const series = { data: [] };
 const swaps = [];
 let init = true;
 
+const timeEl = document.getElementById("time");
+const holderEl = document.getElementById("holders");
 const priceEl = document.getElementById("price");
 const soldEl = document.getElementById("sold");
 const raisedEl = document.getElementById("raised");
@@ -270,9 +272,9 @@ function updatePrice(swap) {
   }
   balances = balances.map((b, i) => b + deltas[i]);
   swaps.push(swap);
-  priceEl.innerHTML = `${price.toFixed(4)} DAI`;
-  soldEl.innerHTML = `${Math.round((params.start.balances[0]-balances[0])/params.start.balances[0]*100)}% RAD sold`;
-  raisedEl.innerHTML = `${formatMoney(balances[1] - params.start.balances[1], 0)} DAI raised`;
+  priceEl.innerHTML = `${price.toFixed(4)} USDC`;
+  soldEl.innerHTML = `${Math.round((params.start.balances[0]-balances[0])/params.start.balances[0]*100)}%`;
+  raisedEl.innerHTML = `${formatMoney(balances[1] - params.start.balances[1], 0)}`;
   if (!init) {
     const predict = new URLSearchParams(window.location.search).get('predict');
     if (predict) {
@@ -292,9 +294,14 @@ async function refreshTime() {
   [params.start.time, params.end.time] = await Promise.all([timeOfBlock(params.start.block), timeOfBlock(params.end.block)]);
   const startIn = moment.duration(params.start.time - now, 'seconds');
   const endIn = moment.duration(params.end.time - now, 'seconds');
+  if (endIn < now ) {
+    timeEl.innerHTML = `0:0:0:0`
+  } else {
+    timeEl.innerHTML = `${endIn.days()}:${endIn.hours()}:${endIn.minutes()}:${endIn.seconds()}`;
+  }
   console.log('ends in', `${endIn.hours()} hours ${endIn.minutes()} minutes ${endIn.seconds()} seconds`);
-  document.getElementsByClassName('start')[0].innerHTML = startIn > 0 ? `start in ${startIn.humanize()}` : 'started';
-  document.getElementsByClassName('end')[0].innerHTML = endIn > 0 ? `end in ${endIn.humanize()}` : 'ended';
+  // document.getElementsByClassName('start')[0].innerHTML = startIn > 0 ? `start in ${startIn.humanize()}` : 'started';
+  // document.getElementsByClassName('end')[0].innerHTML = endIn > 0 ? `end in ${endIn.humanize()}` : 'ended';
 }
 
 async function main() {
@@ -416,7 +423,8 @@ async function main() {
   });
 
   const pool = await fetchPool();
-  console.log(pool)
+  holderEl.innerHTML = `${pool.holdersCount}`
+  console.log(pool.holdersCount)
   const [swaps, lastPrice] = await Promise.all([
       fetchAllSwaps(Number(pool.swapsCount)),
       null //getLatestPrice()

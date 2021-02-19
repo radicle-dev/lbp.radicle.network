@@ -28,11 +28,11 @@ button {
 
 p {
   font-family: var(--font-stack);
-  color: var(--color-foreground);
+  color: var(--color-foreground-level-5);
   line-height: 150%;
 }
 
 p.small {
   font-size: 0.75rem;
-  opacity: 0.5;
+  opacity: 0.75;
 }
