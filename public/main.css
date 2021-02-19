@@ -144,6 +144,7 @@ h2 {
 header svg {
   width: 100vw;
   position: absolute;
+  mix-blend-mode: difference;
 }
 
 .graph {
@@ -167,10 +168,13 @@ header svg {
 #price {
   font-family: Druk X;
   font-size: 20rem;
-  line-height: 0.8;
+  line-height: 0.95;
 }
 
 .rad {
+  color: var(--color-foreground-level-6);
+  font-size: 36px;
+  font-weight: 800;
 }
 
 .low {
@@ -191,4 +195,14 @@ header svg {
   color: var(--color-primary);
   font-size: 0.75rem;
   text-transform: uppercase;
+}
+
+#disclaimer {
+  max-width: 42rem;
+  margin: 0 auto;
+  text-align: center;
+}
+
+#disclaimer p {
+  padding: 4rem 0;
 }
