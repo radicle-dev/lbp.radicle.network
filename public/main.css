@@ -103,7 +103,7 @@ h1 {
   background-clip: text;
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
-  margin-top: 2rem;
+  margin-top: 0.5rem;
 }
 
 #stats {
@@ -141,10 +141,19 @@ h2 {
   font-weight: normal;
 }
 
-header svg {
+header video {
+  width: 48px;
+  margin: 2rem 0 0 0;
+}
+
+header svg.line {
   width: 100vw;
   position: absolute;
   mix-blend-mode: difference;
+}
+
+header p {
+  margin: 1rem 0 0;
 }
 
 .graph {
