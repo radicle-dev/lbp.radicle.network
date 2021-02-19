@@ -90,8 +90,8 @@ h1 {
   font-family: "Druk X";
   text-align: center;
   font-size: 200px;
-  line-height: 0.8;
-  padding-top: 1rem;
+  line-height: 0.85;
+  padding: 1rem 0 0.4rem;
   font-weight: normal;
   background: linear-gradient(
     345.28deg,
