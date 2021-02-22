@@ -244,6 +244,7 @@ h3 {
   font-family: var(--font-stack);
   font-weight: 800;
   font-size: 0.75rem;
+  letter-spacing: 0.08rem;
   color: var(--color-foreground-level-4);
   margin-bottom: 2rem;
 }
