@@ -58,7 +58,7 @@ button {
 
 button:hover {
   color: var(--color-background);
-  background-color: var(--color-caution);
+  background-color: var(--color-positive);
   outline: none;
   cursor: pointer;
 }
@@ -115,9 +115,10 @@ h1 {
   font-weight: normal;
   background: linear-gradient(
     345.28deg,
-    #5555ff 26.4%,
-    #ffc700 46.15%,
-    #ff55ff 62.67%
+    var(--color-secondary) 25%,
+    var(--color-positive) 41%,
+    var(--color-positive) 50%,
+    var(--color-primary) 67%
   );
   color: #000;
   background-clip: text;
@@ -168,7 +169,7 @@ h2 {
 
 .stat-block:first-child h2,
 .stat-block:last-child h2 {
-  color: var(--color-caution);
+  color: var(--color-positive);
 }
 
 .stat-block h2 {
