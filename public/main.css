@@ -15,7 +15,6 @@
 }
 
 #explode {
-  overflow: hidden;
   position: relative;
 }
 
@@ -32,8 +31,6 @@
 }
 
 html {
-  width: 100%;
-  height: 100%;
   background: black;
   color: var(--color-secondary);
   line-height: 1.4;
@@ -188,7 +185,7 @@ h2 {
   }
 }
 .graph {
-  max-width: 1240px;
+  max-width: 77.5rem;
   position: relative;
   margin: 2rem auto;
 }
@@ -230,6 +227,8 @@ h2 {
   display: flex;
   justify-content: space-between;
   flex-flow: wrap;
+  max-width: 77.5rem;
+  margin: 3rem auto;
 }
 
 .stat-block {
@@ -255,7 +254,7 @@ h2 {
 
 #faq,
 .meta,
-#disclaimer {
+#footer {
   max-width: 42rem;
   margin: 0 auto;
 }
@@ -273,12 +272,20 @@ h3 {
   padding-top: 0;
 }
 
-#disclaimer {
+.meta:last-child {
+  margin-bottom: 6rem;
+}
+
+#footer {
   text-align: center;
 }
 
-#disclaimer p {
+#footer p {
   padding: 4rem 0;
+}
+
+#footer a {
+  color: var(--color-foreground-level-5);
 }
 
 .spinner {
@@ -322,7 +329,8 @@ h3 {
   margin-bottom: 1rem;
 }
 
-#faq ol {
+#faq ol,
+#faq ul {
   list-style: inside;
 }
 
@@ -334,6 +342,10 @@ h3 {
 
 #faq ol > li {
   list-style-type: decimal;
+  margin-bottom: 0;
+}
+
+#faq ul > li {
   margin-bottom: 0;
 }
 
