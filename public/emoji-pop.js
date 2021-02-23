@@ -24,13 +24,13 @@ class Fountain {
 
   addHandlers() {
     const isTouchInteraction =
-      "ontouchstart" in window || navigator.msMaxTouchPoints;
+      "ontouchstart" in document.getElementById('emoji-pop');
 
     const tap = isTouchInteraction ? "touchstart" : "mousedown";
     const tapEnd = isTouchInteraction ? "touchend" : "mouseup";
     const move = isTouchInteraction ? "touchmove" : "mousemove";
 
-    document.addEventListener(
+    document.getElementById('emoji-pop').addEventListener(
       move,
       (e) => {
         this.mouseX = e.pageX || e.touches[0].pageX;
@@ -39,17 +39,17 @@ class Fountain {
       { passive: false }
     );
 
-    document.addEventListener(tap, (e) => {
+    document.getElementById('emoji-pop').addEventListener(tap, (e) => {
       this.mouseX = e.pageX || e.touches[0].pageX;
       this.mouseY = e.pageY || e.touches[0].pageY;
       this.autoAddParticle = true;
     });
 
-    document.addEventListener(tapEnd, () => {
+    document.getElementById('emoji-pop').addEventListener(tapEnd, () => {
       this.autoAddParticle = false;
     });
 
-    document.addEventListener("mouseleave", () => {
+    document.getElementById('emoji-pop').addEventListener("mouseleave", () => {
       this.autoAddParticle = false;
     });
   }
