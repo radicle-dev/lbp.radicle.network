@@ -121,7 +121,7 @@ header {
   justify-content: center;
   align-items: center;
   text-align: center;
-  max-width: 52rem;
+  max-width: 42rem;
   margin: 0 auto;
   position: relative;
 }
@@ -145,6 +145,7 @@ header svg.line {
 
 header p {
   margin: 1rem 0 0;
+  max-width: 42rem;
 }
 
 h1 {
@@ -264,7 +265,7 @@ h2 {
 #faq,
 .meta,
 #footer {
-  max-width: 52rem;
+  max-width: 42rem;
   margin: 0 auto;
 }
 
@@ -378,7 +379,7 @@ h3 {
 }
 
 #faq img {
-  max-width: 52rem;
+  max-width: 42rem;
   margin: 0 auto;
 }
 
