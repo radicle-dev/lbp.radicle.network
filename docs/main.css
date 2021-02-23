@@ -137,7 +137,7 @@ header video {
 }
 
 header svg.line {
-  width: 100vw;
+  width: 80vw;
   position: absolute;
   mix-blend-mode: difference;
   pointer-events: none;
