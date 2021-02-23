@@ -5,6 +5,15 @@
 
 /* general styles */
 
+h1,
+h2,
+h3,
+h4,
+h5,
+.stat-block p {
+  cursor: default;
+}
+
 ::-moz-selection {
   background: rgba(255, 255, 0, 0.75);
   color: black;
