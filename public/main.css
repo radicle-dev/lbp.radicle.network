@@ -255,7 +255,7 @@ h2 {
 
 #faq,
 .meta,
-#disclaimer {
+#footer {
   max-width: 42rem;
   margin: 0 auto;
 }
@@ -273,12 +273,20 @@ h3 {
   padding-top: 0;
 }
 
-#disclaimer {
+.meta:last-child {
+  margin-bottom: 6rem;
+}
+
+#footer {
   text-align: center;
 }
 
-#disclaimer p {
+#footer p {
   padding: 4rem 0;
+}
+
+#footer a {
+  color: var(--color-foreground-level-5);
 }
 
 .spinner {
@@ -322,7 +330,8 @@ h3 {
   margin-bottom: 1rem;
 }
 
-#faq ol {
+#faq ol,
+#faq ul {
   list-style: inside;
 }
 
@@ -334,6 +343,10 @@ h3 {
 
 #faq ol > li {
   list-style-type: decimal;
+  margin-bottom: 0;
+}
+
+#faq ul > li {
   margin-bottom: 0;
 }
 
