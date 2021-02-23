@@ -21,6 +21,7 @@
     <link rel="stylesheet" href="/main.css" />
   </head>
   <body>
+      <div id="explode">
       <header>
         <video autoplay playsinline loop muted title="Radicle Token logo spining in 3D along a vertical axis.">
           <source type="video/mp4" src="img/spinning-logo.mp4">
@@ -31,7 +32,7 @@
         </svg>
         <p><strong>The Radicle LBP Event is a two-day token distribution event for the Radicle community.</strong> This is the first opportunity for the general public to buy RAD to participate in the governance of the network. All proceeds will go to the Radicle Treasury, a smart contract entirely controlled by Radicle token holders.  Read more about <a href="_blank">why we are doing a LBP here</a>. Want to know more about LBPs? <a href="/faq.html">Check out the FAQ</a>.
         </p>
-        <button>Buy RAD</button>
+        <button id="emoji-pop">Buy RAD</button>
       </header>
 
 
@@ -73,6 +74,7 @@
           <source type="video/mp4" src="img/spinning-token.mp4">
         </video>
       </div>
+      
       <div id="about">
         <h3>About Radicle</h3>
         <p><a href="radicle.xyz">Radicle</a> is the first open-source, community-led, and self-sustaining network for software collaboration. With Ethereum, Radicle is harnessing the power of Ethereum and DeFi in order to enable developers to truly own their collaboration infrastructure. The network’s code and treasury of assets are publicly managed fully in the open allowing any developer to contribute and influence the direction of the project.</p>
@@ -93,10 +95,12 @@
       <div id="disclaimer">
         <p class="small">Warning: Don't transfer RAD tokens to any contract wallet or exchange. After the LBP concludes, balance transfers of RAD will be frozen forever. You will need to verify that you are the owner of Ethereum address used to get RAD. If you use exchange wallet or smart contract wallet you won't be able to do this and lose access to the HDX!</p>
       </div>
+    </div>
 
     <script src="https://cdn.ethers.io/lib/ethers-5.0.umd.min.js"></script>
     <script src="https://unpkg.com/lightweight-charts/dist/lightweight-charts.standalone.production.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.29.1/moment.min.js"></script>
     <script src="/main.js"></script>
+    <script src="/emoji-pop.js"></script>
   </body>
 </html>
