@@ -1,7 +1,7 @@
 //@ts-check
 
-const defaultDiagramWidth = 900;
-const defaultDiagramHeight = 400;
+const defaultDiagramWidth = 1240;
+const defaultDiagramHeight = 480;
 const network = 'homestead';
 const provider = new ethers.providers.FallbackProvider([
   new ethers.providers.EtherscanProvider(network, 'C9KKK6QF3REYE2UKRZKF5GFB2R2FQ5BWRE'),
@@ -37,6 +37,8 @@ const series = { data: [] };
 const swaps = [];
 let init = true;
 
+const timeEl = document.getElementById("time");
+const holderEl = document.getElementById("holders");
 const priceEl = document.getElementById("price");
 const soldEl = document.getElementById("sold");
 const raisedEl = document.getElementById("raised");
@@ -169,7 +171,7 @@ async function fetchPool() {
     .then((res) => res.data.pools[0]);
 }
 
-async function fetchSwaps(skip = 0) {
+async function fetchSwaps(lastTimestamp) {
   return fetch(graphApi, {
     method: "POST",
     headers: {
@@ -179,7 +181,8 @@ async function fetchSwaps(skip = 0) {
       query: `
                 query {
                   pools(where: {id: "${poolAddress}"}) {
-                    swaps(first: 1000, skip: ${skip}, orderBy: timestamp, orderDirection: asc) {
+                    swaps(first: 1000, orderBy: timestamp, orderDirection: asc,
+                    where: { timestamp_gte: ${lastTimestamp} }) {
                       timestamp
                       id
                       tokenIn
@@ -197,7 +200,7 @@ async function fetchSwaps(skip = 0) {
             `,
     }),
   })
-    .then((res) => res.json())
+    .then(async (res) => res.json())
     .then((res) => res.data.pools[0].swaps.map(calculateSwap));
 }
 
@@ -216,13 +219,14 @@ function calculateSwap(swap) {
 }
 
 async function fetchAllSwaps(count) {
-  let i = 0;
-  let calls = [];
-  do {
-    calls.push(fetchSwaps(i));
-    i += 1000;
-  } while (i < count);
-  return Promise.all(calls).then((calls) => calls.flat());
+  let lastTimestamp = 0;
+  let rets = [];
+  for (let i = 0; i < count; i += 1000) {
+    const swaps = await fetchSwaps(lastTimestamp);
+    rets.push(swaps);
+    lastTimestamp = swaps[swaps.length - 1].timestamp;
+  }
+  return rets.flat();
 }
 
 function predictPrice(rate = 0) {
@@ -268,9 +272,9 @@ function updatePrice(swap) {
   }
   balances = balances.map((b, i) => b + deltas[i]);
   swaps.push(swap);
-  priceEl.innerHTML = `${price.toFixed(4)} DAI`;
-  soldEl.innerHTML = `${Math.round((params.start.balances[0]-balances[0])/params.start.balances[0]*100)}% xHDX sold`;
-  raisedEl.innerHTML = `${formatMoney(balances[1] - params.start.balances[1], 0)} DAI raised`;
+  priceEl.innerHTML = `${price.toFixed(4)} USDC`;
+  soldEl.innerHTML = `${Math.round((params.start.balances[0]-balances[0])/params.start.balances[0]*100)}%`;
+  raisedEl.innerHTML = `${formatMoney(balances[1] - params.start.balances[1], 0)}`;
   if (!init) {
     const predict = new URLSearchParams(window.location.search).get('predict');
     if (predict) {
@@ -290,9 +294,14 @@ async function refreshTime() {
   [params.start.time, params.end.time] = await Promise.all([timeOfBlock(params.start.block), timeOfBlock(params.end.block)]);
   const startIn = moment.duration(params.start.time - now, 'seconds');
   const endIn = moment.duration(params.end.time - now, 'seconds');
+  if (endIn < now ) {
+    timeEl.innerHTML = `0:0:0:0`
+  } else {
+    timeEl.innerHTML = `${endIn.days()}:${endIn.hours()}:${endIn.minutes()}:${endIn.seconds()}`;
+  }
   console.log('ends in', `${endIn.hours()} hours ${endIn.minutes()} minutes ${endIn.seconds()} seconds`);
-  document.getElementsByClassName('start')[0].innerHTML = startIn > 0 ? `start in ${startIn.humanize()}` : 'started';
-  document.getElementsByClassName('end')[0].innerHTML = endIn > 0 ? `end in ${endIn.humanize()}` : 'ended';
+  // document.getElementsByClassName('start')[0].innerHTML = startIn > 0 ? `start in ${startIn.humanize()}` : 'started';
+  // document.getElementsByClassName('end')[0].innerHTML = endIn > 0 ? `end in ${endIn.humanize()}` : 'ended';
 }
 
 async function main() {
@@ -355,8 +364,8 @@ async function main() {
         timeFormatter: timestamp => moment.unix(timestamp).format('D.M. H:mm')
       },
       layout: {
-        textColor: "#F653A2",
-        backgroundColor: "#0D106E",
+        textColor: "#FF55FF",
+        backgroundColor: "transparent",
       },
       timeScale: {
         lockVisibleTimeRangeOnResize: true,
@@ -383,10 +392,10 @@ async function main() {
   series.chart = chart;
 
   series.candle = chart.addCandlestickSeries({
-    upColor: "#5EAFE1",
-    wickUpColor: "#5EAFE1",
-    downColor: "#F653A2",
-    wickDownColor: "#F653A2",
+    upColor: "#53DB53",
+    wickUpColor: "#53DB53",
+    downColor: "#FF55FF",
+    wickDownColor: "#FF55FF",
     borderVisible: false,
     wickVisible: true,
   });
@@ -395,7 +404,7 @@ async function main() {
     lineStyle: 1,
     priceLineVisible: false,
     lastValueVisible: false,
-    color: "#F653A2",
+    color: "#FF55FF",
     lineWidth: 2,
   });
 
@@ -403,7 +412,7 @@ async function main() {
     lineStyle: 1,
     priceLineVisible: false,
     lastValueVisible: false,
-    color: "#5EAFE1",
+    color: "#53DB53",
     lineWidth: 2,
   });
 
@@ -414,6 +423,8 @@ async function main() {
   });
 
   const pool = await fetchPool();
+  holderEl.innerHTML = `${pool.holdersCount}`
+  console.log(pool.holdersCount)
   const [swaps, lastPrice] = await Promise.all([
       fetchAllSwaps(Number(pool.swapsCount)),
       null //getLatestPrice()
@@ -464,7 +475,7 @@ async function main() {
   })
   bpool.on('LOG_SWAP', async (id, tokenIn, tokenOut, tokenAmountIn, tokenAmountOut, { blockNumber }) => {
     const [tokenInSym, tokenOutSym] = [tokenIn, tokenOut]
-        .map(token => token.toLowerCase() === daiAddress.toLowerCase() ? 'DAI' : 'xHDX');
+        .map(token => token.toLowerCase() === daiAddress.toLowerCase() ? 'DAI' : 'RAD');
     if (tokenIn.toLowerCase() === daiAddress.toLowerCase()) {
       [tokenAmountIn, tokenAmountOut] = [
         ethers.utils.formatUnits(tokenAmountIn),
