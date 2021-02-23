@@ -271,6 +271,11 @@ h3 {
 .meta h3 {
   padding-top: 0;
 }
+.meta {
+  display: flex;
+  align-items: center;
+  flex-direction: column;
+}
 
 .meta:last-child {
   margin-bottom: 6rem;
@@ -357,4 +362,13 @@ h3 {
 
 #faq dd {
   padding-left: 1.2rem;
+}
+
+#faq img {
+  max-width: 42rem;
+  margin: 0 auto;
+}
+
+#faq b {
+  font-weight: 600;
 }
