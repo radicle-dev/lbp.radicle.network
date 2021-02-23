@@ -254,10 +254,6 @@ h3 {
   padding-top: 0;
 }
 
-#faq p {
-  margin-bottom: 1rem;
-}
-
 #disclaimer {
   text-align: center;
 }
@@ -275,4 +271,54 @@ h3 {
 
 .spinner video {
   width: 150px;
+}
+
+/* FAQ styles */
+
+.faq header {
+  margin: 1rem auto 3rem;
+}
+
+.faq hr {
+  margin: 2rem auto;
+}
+
+.faq h3 {
+  margin-top: 1rem;
+  padding-top: 0;
+}
+
+.faq blockquote {
+  font-weight: 600;
+  border-left: 4px solid var(--color-secondary);
+  padding-left: 1rem;
+  margin-bottom: 1rem;
+}
+
+.faq * {
+  margin-bottom: 1rem;
+}
+
+.faq ol {
+  list-style: inside;
+}
+
+.faq ol > li,
+.faq dt,
+.faq dd {
+  color: var(--color-foreground-level-5);
+}
+
+.faq ol > li {
+  list-style-type: decimal;
+}
+
+.faq dt {
+  display: list-item;
+  list-style-type: disc;
+  list-style: inside;
+}
+
+.faq dd {
+  padding-left: 1.2rem;
 }
