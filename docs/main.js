@@ -1,38 +1,47 @@
 //@ts-check
 
-const defaultDiagramWidth = 1240;
-const defaultDiagramHeight = 480;
 const network = 'homestead';
 const provider = new ethers.providers.FallbackProvider([
   new ethers.providers.EtherscanProvider(network, 'C9KKK6QF3REYE2UKRZKF5GFB2R2FQ5BWRE'),
   new ethers.providers.InfuraProvider(network)
 ]);
-const blockTime = 13.1;
+
+const blockTime = 13.5;
 const diagramId = "price-prediction";
-const lbpAddress = "0x6428006d00a224116c3e8a4fca72ac9bb7d42327";
-const poolAddress = "0xf014fc5d0f02c19d617a30a745ab86a8ca32c92f";
-const daiAddress = "0x6B175474E89094C44Da98b954EedeAC495271d0F";
-const xhdxAddress = "0x6fcb6408499a7c0f242e32d77eb51ffa1dd28a7e";
+
+const crpAddress = "0x750dD34Fb165bE682fAe445793AB9ab9729CDAa3";
+// TODO(xla): Get bPool address once sale has been executed.
+const bPoolAddress = "0xf014fc5d0f02c19d617a30a745ab86a8ca32c92f";
+
+const stablecoin = "USDC";
+const usdcAddress = "0xA0b86991c6218b36c1d19D4a2e9Eb0cE3606eB48";
+const radAddress = "0x31c8EAcBFFdD875c74b94b077895Bd78CF1E64A3";
+
 const graphApi =
   "https://api.thegraph.com/subgraphs/name/balancer-labs/balancer";
-const stablecoin = "DAI";
 
 const bucket = 1600;
 const params = {
+
   start: {
+    // TODO(xla): Enter correct start block once sale executed.
     block: 11817006,
     time: 1612800000,
     weights: [37, 3],
-    balances: [498362339.302326258, 1250000],
+    balances: [3750000, 3500000],
   },
+
   end: {
+    // TODO(xla): Enter correct end block based on correct start block.
     block: 11836793,
     time: 1613059200,
-    weights: [7, 33],
+    weights: [20, 20],
   },
 };
 let balances = params.start.balances;
 
+const defaultDiagramWidth = 1240;
+const defaultDiagramHeight = 480;
 const series = { data: [] };
 const swaps = [];
 let init = true;
@@ -137,8 +146,8 @@ async function getLatestPrice() {
   const abi = [
     "function getSpotPrice(address tokenIn, address tokenOut) view returns (uint)",
   ];
-  const pool = new ethers.Contract(poolAddress, abi, provider);
-  const rawPrice = await pool.getSpotPrice(daiAddress, xhdxAddress);
+  const pool = new ethers.Contract(bPoolAddress, abi, provider);
+  const rawPrice = await pool.getSpotPrice(usdcAddress, radAddress);
   const price = Number.parseFloat(
     ethers.utils.formatUnits(rawPrice, 24)
   );
@@ -154,7 +163,7 @@ async function fetchPool() {
     body: JSON.stringify({
       query: `
                 query {
-                  pools(where: {id: "${poolAddress}"}) {
+                  pools(where: {id: "${bPoolAddress}"}) {
                     swapsCount,
                     tokens {
                       symbol
@@ -180,7 +189,7 @@ async function fetchSwaps(lastTimestamp) {
     body: JSON.stringify({
       query: `
                 query {
-                  pools(where: {id: "${poolAddress}"}) {
+                  pools(where: {id: "${bPoolAddress}"}) {
                     swaps(first: 1000, orderBy: timestamp, orderDirection: asc,
                     where: { timestamp_gte: ${lastTimestamp} }) {
                       timestamp
@@ -300,8 +309,8 @@ async function refreshTime() {
     timeEl.innerHTML = `${endIn.days()}:${endIn.hours()}:${endIn.minutes()}:${endIn.seconds()}`;
   }
   console.log('ends in', `${endIn.hours()} hours ${endIn.minutes()} minutes ${endIn.seconds()} seconds`);
-  // document.getElementsByClassName('start')[0].innerHTML = startIn > 0 ? `start in ${startIn.humanize()}` : 'started';
-  // document.getElementsByClassName('end')[0].innerHTML = endIn > 0 ? `end in ${endIn.humanize()}` : 'ended';
+  document.getElementsByClassName('start')[0].innerHTML = startIn > 0 ? `start in ${startIn.humanize()}` : 'started';
+  document.getElementsByClassName('end')[0].innerHTML = endIn > 0 ? `end in ${endIn.humanize()}` : 'ended';
 }
 
 async function main() {
@@ -463,8 +472,8 @@ async function main() {
   });
   resize();
 
-  const lbp = new ethers.Contract(lbpAddress, lAbi, provider);
-  const bpool = new ethers.Contract(poolAddress, pAbi, provider);
+  const lbp = new ethers.Contract(crpAddress, lAbi, provider);
+  const bpool = new ethers.Contract(bPoolAddress, pAbi, provider);
   lbp.on({topics: ['0xe211b87500000000000000000000000000000000000000000000000000000000'] }, async () => {
     console.log('poked!');
     updatePrice({
@@ -475,8 +484,8 @@ async function main() {
   })
   bpool.on('LOG_SWAP', async (id, tokenIn, tokenOut, tokenAmountIn, tokenAmountOut, { blockNumber }) => {
     const [tokenInSym, tokenOutSym] = [tokenIn, tokenOut]
-        .map(token => token.toLowerCase() === daiAddress.toLowerCase() ? 'DAI' : 'RAD');
-    if (tokenIn.toLowerCase() === daiAddress.toLowerCase()) {
+        .map(token => token.toLowerCase() === usdcAddress.toLowerCase() ? 'USDC' : 'RAD');
+    if (tokenIn.toLowerCase() === usdcAddress.toLowerCase()) {
       [tokenAmountIn, tokenAmountOut] = [
         ethers.utils.formatUnits(tokenAmountIn),
         ethers.utils.formatUnits(tokenAmountOut, 12)
