@@ -328,21 +328,21 @@ async function main() {
   let chartWidth = defaultDiagramWidth;
   let chartHeight = defaultDiagramHeight;
 
-  if (document.scrollingElement.clientWidth - 32 < defaultDiagramWidth) {
-    chartWidth = document.scrollingElement.clientWidth - 32;
+  if (document.scrollingElement.clientWidth - 64 < defaultDiagramWidth) {
+    chartWidth = document.scrollingElement.clientWidth - 64;
     chartHeight =
-      ((document.scrollingElement.clientWidth - 32) * defaultDiagramHeight) /
-      (defaultDiagramWidth - 32);
+      ((document.scrollingElement.clientWidth - 64) * defaultDiagramHeight) /
+      (defaultDiagramWidth - 64);
   }
 
   const resize = () => {
-    if (document.scrollingElement.clientWidth - 32 < defaultDiagramWidth) {
+    if (document.scrollingElement.clientWidth - 64 < defaultDiagramWidth) {
       chart.applyOptions({
-        width: document.scrollingElement.clientWidth - 32,
+        width: document.scrollingElement.clientWidth - 64,
         height:
-          ((document.scrollingElement.clientWidth - 32) *
+          ((document.scrollingElement.clientWidth - 64) *
             defaultDiagramHeight) /
-          (defaultDiagramWidth - 32),
+          (defaultDiagramWidth - 64),
       });
     } else {
       chart.applyOptions({
