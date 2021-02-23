@@ -14,6 +14,23 @@
   color: black;
 }
 
+#explode {
+  overflow: hidden;
+  position: relative;
+}
+
+.particle {
+  position: absolute;
+  pointer-events: none;
+}
+
+.particle::-moz-selection {
+  background: none;
+}
+.particle::selection {
+  background: none;
+}
+
 html {
   width: 100%;
   height: 100%;
@@ -138,7 +155,7 @@ h2 {
 #price {
   font-family: Druk X;
   font-size: 20vw;
-  line-height: 1.25;
+  line-height: 1.5vw;
   opacity: 0.2;
 }
 
