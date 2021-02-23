@@ -368,3 +368,7 @@ h3 {
   max-width: 42rem;
   margin: 0 auto;
 }
+
+#faq b {
+  font-weight: 600;
+}
