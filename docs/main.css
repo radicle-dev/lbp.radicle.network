@@ -131,15 +131,6 @@ header video {
   margin: 2rem 0 0 0;
 }
 
-svg.line {
-  width: 100vw;
-  max-width: 100%;
-  position: absolute;
-  mix-blend-mode: difference;
-  pointer-events: none;
-  top: 7vw;
-}
-
 header p {
   margin: 1rem 0 0;
   max-width: 42rem;
