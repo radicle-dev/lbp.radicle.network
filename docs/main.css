@@ -122,8 +122,8 @@ header {
   padding: 0 2rem;
 }
 
-header > p:nth-child(3) {
-  padding: 1rem 0;
+header > p.white {
+  color: var(--color-foreground);
 }
 
 header video {
