@@ -22,11 +22,6 @@ h5,
   background: rgba(255, 255, 0, 0.75);
   color: black;
 }
-
-#explode {
-  position: relative;
-}
-
 .particle {
   position: absolute;
   pointer-events: none;
@@ -49,7 +44,7 @@ html {
   text-rendering: optimizeSpeed;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
-  padding: 0 2rem;
+  position: relative;
 }
 
 h2,
@@ -113,6 +108,7 @@ strong {
 
 hr {
   border: 1px solid var(--color-foreground-level-3);
+  margin: 3rem 2rem;
 }
 
 header {
@@ -121,9 +117,9 @@ header {
   justify-content: center;
   align-items: center;
   text-align: center;
-  max-width: 42rem;
+  max-width: 52rem;
   margin: 0 auto;
-  position: relative;
+  padding: 0 2rem;
 }
 
 header > p:nth-child(3) {
@@ -135,8 +131,9 @@ header video {
   margin: 2rem 0 0 0;
 }
 
-header svg.line {
+svg.line {
   width: 100vw;
+  max-width: 100%;
   position: absolute;
   mix-blend-mode: difference;
   pointer-events: none;
@@ -198,6 +195,7 @@ h2 {
   max-width: 77.5rem;
   position: relative;
   margin: 2rem auto;
+  padding: 0 2rem;
 }
 
 .ticker {
@@ -239,6 +237,7 @@ h2 {
   flex-flow: wrap;
   max-width: 77.5rem;
   margin: 3rem auto;
+  padding: 0 2rem;
 }
 
 .stat-block {
@@ -267,6 +266,7 @@ h2 {
 #footer {
   max-width: 42rem;
   margin: 0 auto;
+  padding: 0 2rem;
 }
 
 h3 {
@@ -296,7 +296,7 @@ h3 {
 }
 
 #footer {
-  padding: 4rem 0;
+  padding: 4rem 2rem;
 }
 
 #footer p {
@@ -381,6 +381,7 @@ h3 {
 #faq img {
   max-width: 42rem;
   margin: 0 auto;
+  width: 100%;
 }
 
 #faq b {
