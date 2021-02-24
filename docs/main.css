@@ -33,7 +33,6 @@ html {
   text-rendering: optimizeSpeed;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
-  position: relative;
 }
 
 h2,
@@ -111,22 +110,13 @@ header {
   padding: 0 2rem;
 }
 
-header > p:nth-child(3) {
-  padding: 1rem 0;
+header > p:last-child {
+  color: var(--color-foreground);
 }
 
 header video {
   width: 48px;
   margin: 2rem 0 0 0;
-}
-
-svg.line {
-  width: 100vw;
-  max-width: 100%;
-  position: absolute;
-  mix-blend-mode: difference;
-  pointer-events: none;
-  top: 7vw;
 }
 
 header p {
