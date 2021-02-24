@@ -7,15 +7,14 @@
 
     <title>Radicle Liquiditiy Bootstrapping Event FAQ</title>
 
-    <meta property="og:title" content="Radicle" />
-    <meta property="og:locale" content="en_US" />
-    <meta name="description" content="Liquidity is the key" />
-    <meta property="og:description" content="Liquidity is the key" />
-    <link rel="canonical" href="https://lbp.radicle.xyz/" />
-    <meta property="og:url" content="https://lbp.radicle.xyz/" />
-    <meta property="og:site_name" content="Radicle" />
-    <meta name="twitter:card" content="LBP Info" />
-    <meta property="twitter:title" content="Radicle" />
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:site" content="@radicle">
+    <meta name="twitter:creator" content="@radicle">
+    <meta property="og:title" content="Radicle Liquidity Bootstrapping Event - FAQ">
+    <meta property="og:image" content="http://lbp.radicle.network/img/lbp-social-share@2x.jpg">
+    <meta property="twitter:image" content="http://lbp.radicle.network/img/lbp-social-share@2x.jpg">
+    <meta property="og:description" content="The Radicle LBP Event is a two-day liquidity bootstrapping event for the Radicle community.">
+    <meta property="description" content="The Radicle LBP Event is a two-day liquidity bootstrapping event for the Radicle community.">
 
     <link rel="shortcut icon" type="image/x-icon" href="favicon.ico" />
     <link rel="stylesheet" href="/main.css" />
@@ -30,18 +29,18 @@
         <a href="/">Back to the chart</a>
       </header>
       <p>
-        <strong>The Radicle network will offer 3.75m Radicle tokens over 48 hours, from block x (~ 25.2.2021 4pm GMT) till block y  (~ 27.2.2021 4pm GMT). </strong>
+        <strong>The Radicle network will offer 3.75m Radicle tokens over 48 hours, from 25.2.2021 ~16:30 UTC till 27.2.2021 ~16:30pm UTC. </strong>
       </p>
       <p>
-        The event will take place on a decentralized exchange named <a href="https://balancer.finance/">Balancer</a>, using a mechanism called Liquidity Bootstrapping Pool. Any proceeds generated from the event will end up in the Radicle Treasury, a smart contract fully controlled by the Radicle token holders publicly.
+        The event will take place on a decentralized exchange named <a href="https://balancer.finance/">Balancer</a>, using a mechanism called Liquidity Bootstrapping Pool. Any proceeds generated from the event will go to the Radicle Treasury, a smart contract fully and transparently controlled by the Radicle token holders.
       </p>
       <p>
-        Radicle's <a href="https://twitter.com/radicle">official Twitter account</a> will tweet the contract address day-of and update the Radicle blog. You can track the status of the LBP event on <a href="lbp.radicle.network">lbp.radicle.network</a>.<i>Everything else should be considered a scam. Please make sure the Balancer address is the same as the contract address when proceeding.
+        The official Radicle <a href="https://twitter.com/radicle">Twitter account</a> will tweet the contract address, in addition to the Radicle blog. You can track the status of the LBP event on <a href="https://lbp.radicle.network/">lbp.radicle.network</a>.<i> Everything else should be considered a scam. Please make sure the Balancer address is the same as the contract address when proceeding.
         </i>
       </p>
       <p>
         <blockquote>
-        🚨 The Balancer LBP is not like a regular Balancer pool. The price will start high to disincentivize bots, front-running and speculation. Over time, the price will automatically decrease by design.
+        🚨 The Balancer LBP is not like a regular Balancer pool. The price will start high to disincentivize bots, front-running and speculation. Over time, the price will automatically decrease by design, so only participate if you know what you are doing.
       </blockquote>
       </p>
 
@@ -73,7 +72,7 @@
         Balancer’s <a href="https://docs.balancer.finance/guides/smart-pool-templates-gui/liquidity-bootstrapping-pool">Liquidity Bootstrapping Pool (LBP)</a> is a Balancer pool that automatically adjusts its pool weights over time. This applies downward price pressure on the token and disincentivizes front-running, speculation and whale buying. See Balancer’s <a href="https://docs.balancer.finance/smart-contracts/smart-pools/liquidity-bootstrapping-faq">Liquidity Bootstrapping Pool FAQ</a> for more information.
       </p>
 
-      <p><strong>Q3: Why did was this specific mechanism (LBP) chosen?</strong></p>
+      <p><strong>Q3: Why was this specific mechanism (LBP) chosen?</strong></p>
       <p>
         The LBP has a number of properties that are desired for a liquidity bootstrapping event:
         <ol>
@@ -107,7 +106,12 @@
         There are 9,909,526 Radicle tokens in circulation, including the tokens that will become available through the Liquidity Bootstrapping Event.
       </p>
 
-      <p><strong>Q8:  How was the initial price calculated?</strong></p>
+      <p><strong>Q8: What tokens does the pool accept?</strong></p>
+      <p>
+        The pool accepts swapping RAD for any token available on Balancer, however, it will be cheapest to swap RAD for USDC.
+      </p>
+
+      <p><strong>Q9:  How was the initial price calculated?</strong></p>
       <p>
         The price was calculated based on the amounts of tokens in the Balancer pool and their weights:
       </p>
@@ -115,7 +119,7 @@
         <b>3 750 000 RAD</b> and <b>3 500 000 USDC</b> in weights <b>92.5 : 7.5</b> = (3500000*92.5)/(3750000*7.5) = <b>11.5 USDC per RAD</b>
       </p>
 
-      <p><strong>Q9: How is the last price calculated?</strong></p>
+      <p><strong>Q10: How is the last price calculated?</strong></p>
       <p>
         The last price is hard to estimate because it depends on the changing weights of the LBP and the demand for buying RAD. In the scenario that there is no demand at all the last price given will be:
       </p>
@@ -123,30 +127,27 @@
       <b>3 750 000 RAD</b> and <b>3 500 000 USDC</b> in weights <b>50 : 50</b> = (3500000*50)/(3750000*50) = <b>0.933 USDC per RAD</b>
       </p>
       <p>
-        You can see a model developed in preperation for the LBP event <a href="https://docs.google.com/spreadsheets/d/1kzoX7u-zCeRAMjlezJ3ogSVawbHs1dHE1FIaUDJqc-8/edit#gid=2115830440">here</a>. You can copy it and experiment with behavior on the “Simulation” tab. Thank you to Perpetual protocol for sharing this model with the world!
+        You can see a model (that assumes no demand) <a href="https://docs.google.com/spreadsheets/d/1kzoX7u-zCeRAMjlezJ3ogSVawbHs1dHE1FIaUDJqc-8/edit#gid=0">here</a>. You can copy it and experiment with behavior on the “Simulation” tab. Thank you to Perpetual protocol for sharing this model with the world!
       </p>
 
-      <p><strong>Q10: How are the price weights expected to change over time? Is there a price graph anywhere?</strong></p>
+      <p><strong>Q11: How are the price weights expected to change over time? Is there a price graph anywhere?</strong></p>
       <p>
         The price weights start at <strong>92.5:7.5</strong> and change linearly over time towards a 50%-50% split after 48 hours. See the graph below:
       </p>
 
       <img src="img/price-weights.svg" alt="A graph visualizing how price changes over time">
 
-      <p><strong>Q11: What is the maximum and minimum amount of contribution?</strong></p>
+      <p><strong>Q12: What is the maximum and minimum amount of contribution?</strong></p>
       <p>
         There is no minimum or maximum as LBPs work differently than traditional exchanges.
       </p>
-      <p>
-        There is no maximum as LBPs work differently than traditional exchanges.
-      </p>
 
-      <p><strong>Q12: If there is no maximum, can someone buy all the tokens?</strong></p>
+      <p><strong>Q13: If there is no maximum, can someone buy all the tokens?</strong></p>
       <p>
         While this is theoretically feasible, in practice it would lead to a massive increase in price, because of <a href="https://www.investopedia.com/terms/s/slippage.asp">slippage</a> and the way AMMs work. Therefore, it's extremely unlikely.
       </p>
 
-      <p><strong>Q13: Who founded the Radicle project?</strong></p>
+      <p><strong>Q14: Who founded the Radicle project?</strong></p>
       <p>
         The Radicle project was founded by Alexis Sellier and Eleftherios Diakomichalis at the beginning of 2018.
       </p>
@@ -157,36 +158,31 @@
         Eleftherios was previously the Vice President for Data Science and Engineering at <a href="https://soundcloud.com/discover">Soundcloud</a>.
       </p>
 
-      <p><strong>Q14: Who are the existing supporters of the project?</strong></p>
+      <p><strong>Q15: Who are the existing supporters of the project?</strong></p>
       <p>
         Existing supporters include Placeholder, Blueyard, Galaxy Digital, NFX, Electric, Parafi, Coinfund, 1kx, Fenbushi, Hashkey, Coinbase Ventures, eGirl, Naval Ravikant, Fred Ersham, Balaji Srinivasan, Meltem Demirors as well as the founders of Aave, TheGraph, PolkaDot.
       </p>
 
-      <p><strong>Q15: What is the distribution of tokens between supporters and early contributors?</strong></p>
+      <p><strong>Q16: What is the distribution of tokens between supporters and early contributors?</strong></p>
       <p>
         <i>Note: The 50% allocation slice is % of total supply that is controlled by the Treasury</i>
       </p>
 
       <img src="img/distribution-chart.svg" alt="A chart outlining the network's token distribution">
 
-      <p><strong>Q16: How many projects are already in Radicle?</strong></p>
+      <p><strong>Q17: How many projects are already in Radicle?</strong></p>
       <p>
         Radicle is a peer-to-peer network (like IPFS) so it’s hard to know exactly the precise number of projects in the network. Although, the core-team is operating a seed-node in the network, where more than 1200 projects have been replicated and this number has been growing really fast! The average growth rate week-over-week has been ~8%.
       </p>
 
-      <p><strong>Q17: How much did the project raise in its last round? What was the price given to investors in the previous round?</strong></p>
+      <p><strong>Q18: How much did the project raise in its last fundraising round?</strong></p>
       <p>
-        Radicle raised $12m in its last round. The price was $1.5 per Radicle token.
-      </p>
-
-      <p><strong>Q18: How can I participate?</strong></p>
-      <p>
-        [Julien to add screenshots]
+        Most recently, the Radicle project raised $12m to support the development of the network, at $1.5 per Radicle token.
       </p>
 
       <p><strong>Q19: Where can I read more about other Liquidity Bootstrapping pools?</strong></p>
       <p>
-        Some really valuable resources below:
+        You can find some helpful resources below:
         <ul>
           <li><a href="https://medium.com/perpetual-protocol/why-we-chose-to-distribute-perp-using-a-balancer-liquidity-bootstrapping-pool-aac7f1ab6181">Perpetual Protocol - Whey we chose to distribute PERP using an LBP</a></li>
           <li><a href="https://hydradx.substack.com/p/hydradx-faq">Hydradx LBP FAQ</a></li>

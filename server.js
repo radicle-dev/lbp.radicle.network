@@ -36,7 +36,7 @@ const serveStatic = (route, res) => {
 
 const requestHandler = (req, res) => {
   if (req.method === "GET") {
-    const route = path.normalize(path.join(__dirname, "public", req.url));
+    const route = path.normalize(path.join(__dirname, "docs", req.url));
     if (serveStatic(route, res)) {
       return;
     }
