@@ -428,45 +428,51 @@ async function main() {
     resize();
   });
 
-  const pool = await fetchPool();
-  holderEl.innerHTML = `${pool.holdersCount}`
-  console.log(pool.holdersCount)
-  const [swaps, lastPrice] = await Promise.all([
-      fetchAllSwaps(Number(pool.swapsCount)),
-      null //getLatestPrice()
-  ]);
-  console.log(swaps, lastPrice);
-  const past = swaps.filter(s => s.timestamp >= params.start.time);
-  if (past.length) {
-    let last = past.pop();
-    past.map(updatePrice);
-    init = false;
-    updatePrice(last);
-  } else {
+  try {
+    const pool = await fetchPool();
+    holderEl.innerHTML = `${pool.holdersCount}`
+    console.log(pool.holdersCount)
+    const [swaps, lastPrice] = await Promise.all([
+        fetchAllSwaps(Number(pool.swapsCount)),
+        null //getLatestPrice()
+    ]);
+    console.log(swaps, lastPrice);
+    const past = swaps.filter(s => s.timestamp >= params.start.time);
+    if (past.length) {
+      let last = past.pop();
+      past.map(updatePrice);
+      init = false;
+      updatePrice(last);
+    } else {
+      updatePrice({
+        timestamp: params.start.time,
+        price: spotPrice(balances, params.start.weights),
+        deltas: [0, 0],
+      });
+    }
+    // final price hardcoded
     updatePrice({
       timestamp: params.start.time,
-      price: spotPrice(balances, params.start.weights),
+      price: 0.0806,
       deltas: [0, 0],
     });
-  }
-  // final price hardcoded
-  updatePrice({
-    timestamp: params.start.time,
-    price: 0.0806,
-    deltas: [0, 0],
-  });
-  const now = moment().unix();
-  if (lastPrice && now >= params.start.time) {
-    updatePrice({
-      timestamp: now,
-      price: lastPrice,
-      deltas: [0, 0],
+    const now = moment().unix();
+    if (lastPrice && now >= params.start.time) {
+      updatePrice({
+        timestamp: now,
+        price: lastPrice,
+        deltas: [0, 0],
+      });
+    }
+    series.chart.timeScale().setVisibleRange({
+      from: params.start.time,
+      to: params.end.time,
     });
+
+    document.getElementById("dataz").style.display = "block";
+  } catch (err) {
+    // whoop whoop
   }
-  series.chart.timeScale().setVisibleRange({
-    from: params.start.time,
-    to: params.end.time,
-  });
   resize();
 
   const lbp = new ethers.Contract(crpAddress, lAbi, provider);
