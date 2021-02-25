@@ -106,12 +106,25 @@
         There are 9,909,526 Radicle tokens in circulation, including the tokens that will become available through the Liquidity Bootstrapping Event.
       </p>
 
-      <p><strong>Q8: What tokens does the pool accept?</strong></p>
+      <p><strong>Q8: What are the specifications for the LBP?</strong></p>
+      <ul>
+        <li>Pool tokens: <strong>RAD and USDC</strong></li>
+        <li>RAD start balance: <strong>3.75M</strong></li>
+        <li>USDC start balance: <strong>3.5M</strong></li>
+        <li>RAD start weight: <strong>92.5</strong></li>
+        <li>RAD end weight: <strong>50</strong></li>
+        <li>USDC start weight: <strong>7.5</strong></li>
+        <li>USDC end weight: <strong>50</strong></li>
+        <li>Swap fee: <strong>0.5%</strong></li>
+        <li>Duration: <strong>2 days</strong></li>
+      </ul>
+
+      <p><strong>Q9: What tokens does the pool accept?</strong></p>
       <p>
         The pool accepts swapping RAD for any token available on Balancer, however, it will be cheapest to swap RAD for USDC.
       </p>
 
-      <p><strong>Q9:  How was the initial price calculated?</strong></p>
+      <p><strong>Q10:  How was the initial price calculated?</strong></p>
       <p>
         The price was calculated based on the amounts of tokens in the Balancer pool and their weights:
       </p>
@@ -119,7 +132,7 @@
         <b>3 750 000 RAD</b> and <b>3 500 000 USDC</b> in weights <b>92.5 : 7.5</b> = (3500000*92.5)/(3750000*7.5) = <b>11.5 USDC per RAD</b>
       </p>
 
-      <p><strong>Q10: How is the last price calculated?</strong></p>
+      <p><strong>Q11: How is the last price calculated?</strong></p>
       <p>
         The last price is hard to estimate because it depends on the changing weights of the LBP and the demand for buying RAD. In the scenario that there is no demand at all the last price given will be:
       </p>
@@ -130,24 +143,24 @@
         You can see a model (that assumes no demand) <a href="https://docs.google.com/spreadsheets/d/1kzoX7u-zCeRAMjlezJ3ogSVawbHs1dHE1FIaUDJqc-8/edit#gid=0">here</a>. You can copy it and experiment with behavior on the “Simulation” tab. Thank you to Perpetual protocol for sharing this model with the world!
       </p>
 
-      <p><strong>Q11: How are the price weights expected to change over time? Is there a price graph anywhere?</strong></p>
+      <p><strong>Q12: How are the price weights expected to change over time? Is there a price graph anywhere?</strong></p>
       <p>
         The price weights start at <strong>92.5:7.5</strong> and change linearly over time towards a 50%-50% split after 48 hours. See the graph below:
       </p>
 
       <img src="img/price-weights.svg" alt="A graph visualizing how price changes over time">
 
-      <p><strong>Q12: What is the maximum and minimum amount of contribution?</strong></p>
+      <p><strong>Q13: What is the maximum and minimum amount of contribution?</strong></p>
       <p>
         There is no minimum or maximum as LBPs work differently than traditional exchanges.
       </p>
 
-      <p><strong>Q13: If there is no maximum, can someone buy all the tokens?</strong></p>
+      <p><strong>Q14: If there is no maximum, can someone buy all the tokens?</strong></p>
       <p>
         While this is theoretically feasible, in practice it would lead to a massive increase in price, because of <a href="https://www.investopedia.com/terms/s/slippage.asp">slippage</a> and the way AMMs work. Therefore, it's extremely unlikely.
       </p>
 
-      <p><strong>Q14: Who founded the Radicle project?</strong></p>
+      <p><strong>Q15: Who founded the Radicle project?</strong></p>
       <p>
         The Radicle project was founded by <a href="https://twitter.com/cloudhead" target="_blank">Alexis Sellier</a> and <a href="https://twitter.com/lftherios" target="_blank">Eleftherios Diakomichalis</a> at the beginning of 2018.
       </p>
@@ -158,29 +171,29 @@
         Eleftherios was previously the Vice President for Data Science and Engineering at <a href="https://soundcloud.com/discover">Soundcloud</a>.
       </p>
 
-      <p><strong>Q15: Who are the existing supporters of the project?</strong></p>
+      <p><strong>Q16: Who are the existing supporters of the project?</strong></p>
       <p>
         Existing supporters include Placeholder, Blueyard, Galaxy Digital, NFX, Electric, Parafi, Coinfund, 1kx, Fenbushi, Hashkey, Coinbase Ventures, eGirl, Naval Ravikant, Fred Ersham, Balaji Srinivasan, Meltem Demirors as well as the founders of Aave, TheGraph, PolkaDot.
       </p>
 
-      <p><strong>Q16: What is the distribution of tokens between supporters and early contributors?</strong></p>
+      <p><strong>Q17: What is the distribution of tokens between supporters and early contributors?</strong></p>
       <p>
         <i>Note: The 50% allocation slice is % of total supply that is controlled by the Treasury</i>
       </p>
 
       <img src="img/distribution-chart.svg" alt="A chart outlining the network's token distribution">
 
-      <p><strong>Q17: How many projects are already in Radicle?</strong></p>
+      <p><strong>Q18: How many projects are already in Radicle?</strong></p>
       <p>
         Radicle is a peer-to-peer network (like IPFS) so it’s hard to know exactly the precise number of projects in the network. Although, the core-team is operating a seed-node in the network, where more than 1200 projects have been replicated and this number has been growing really fast! The average growth rate week-over-week has been ~8%.
       </p>
 
-      <p><strong>Q18: How much did the project raise in its last fundraising round?</strong></p>
+      <p><strong>Q19: How much did the project raise in its last fundraising round?</strong></p>
       <p>
         Most recently, the Radicle project raised $12m to support the development of the network, at $1.5 per Radicle token.
       </p>
 
-      <p><strong>Q19: What is the allocation and release schedule for supporters and team?</strong></p>
+      <p><strong>Q20: What is the allocation and release schedule for supporters and team?</strong></p>
       <p>
         100M Radicle tokens (fixed) have been minted at genesis and will be vested over the course of 4 years.
       </p>
@@ -197,7 +210,7 @@
       </p>
       <img src="/img/charts.png" alt="Charts showing the token allocation and release schedule">
 
-      <p><strong>Q20: Where can I read more about other Liquidity Bootstrapping pools?</strong></p>
+      <p><strong>Q21: Where can I read more about other Liquidity Bootstrapping pools?</strong></p>
       <p>
         You can find some helpful resources below:
         <ul>
