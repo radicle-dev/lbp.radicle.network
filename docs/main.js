@@ -305,6 +305,8 @@ function refreshTime() {
   timeEl.innerHTML = moment.duration(params.end.time - now, 'seconds').format("HH:mm:ss");
 }
 
+let holders = {};
+
 async function main() {
   await refreshBlocktime();
   refreshTime();
@@ -363,7 +365,7 @@ async function main() {
       handleScroll: false,
       handleScale: false,
       localization: {
-        priceFormatter: price => price.toFixed(4),
+        priceFormatter: price => price.toFixed(2),
         timeFormatter: timestamp => moment.unix(timestamp).format('DD.MM. HH:mm')
       },
       layout: {
@@ -373,7 +375,7 @@ async function main() {
       timeScale: {
         lockVisibleTimeRangeOnResize: true,
         timeVisible: true,
-        barSpacing: 1,
+        barSpacing: 0.5,
       },
       priceScale: {
         scaleMargins: {
@@ -407,8 +409,8 @@ async function main() {
     lineStyle: 1,
     priceLineVisible: false,
     lastValueVisible: false,
-    color: "#FF55FF",
-    lineWidth: 2,
+    color: "#8594a1",
+    lineWidth: 1,
   });
 
   series.predicted = chart.addLineSeries({
@@ -432,7 +434,7 @@ async function main() {
         getLatestPrice(),
     ]);
 
-    const holders = swaps.map((swap) => {
+    holders = swaps.map((swap) => {
       let rads = parseFloat(swap.tokenAmountIn);
 
       if (swap.tokenIn === usdcAddress) {
@@ -534,6 +536,7 @@ async function main() {
   //   console.log('swap!', swap.deltas);
   //   updatePrice(swap);
   // });
+
   setInterval(refreshBlocktime, 10000);
   setInterval(refreshTime, 1000);
 }
