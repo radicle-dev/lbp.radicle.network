@@ -22,6 +22,7 @@ h5,
   background: rgba(255, 255, 0, 0.75);
   color: black;
 }
+
 .particle {
   position: absolute;
   pointer-events: none;
@@ -44,7 +45,6 @@ html {
   text-rendering: optimizeSpeed;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
-  position: relative;
 }
 
 h2,
@@ -190,8 +190,8 @@ h2 {
 }
 
 #price-prediction {
-	min-width: 77.5rem;
-	min-height: 30rem;
+  max-width: 77.5rem;
+  max-height: 30rem;
 }
 
 .ticker {
