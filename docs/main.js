@@ -302,13 +302,14 @@ async function refreshBlocktime() {
   [params.start.time, params.end.time] = await Promise.all([timeOfBlock(params.start.block), timeOfBlock(params.end.block)]);
 }
 
-async function refreshTime() {
+function refreshTime() {
   const now = moment().unix();
   timeEl.innerHTML = moment.duration(params.end.time - now, 'seconds').format("HH:mm:ss");
 }
 
 async function main() {
   await refreshBlocktime();
+  refreshTime();
 
   weights = (() => {
     const start = params.start.weights;
