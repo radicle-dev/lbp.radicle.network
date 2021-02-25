@@ -21,14 +21,12 @@ const graphApi =
 
 const bucket = 1600;
 const params = {
-
   start: {
     block: 11927446,
     time: 1614271143,
     weights: [37, 3],
     balances: [3750000, 3500000],
   },
-
   end: {
     block: 11927446 + 12800 + 266,
     time: 1614443943,
@@ -281,7 +279,7 @@ function updatePrice(swap) {
   }
   balances = balances.map((b, i) => b + deltas[i]);
   swaps.push(swap);
-  priceEl.innerHTML = `${price.toFixed(4)} USDC`;
+  priceEl.innerHTML = `${price.toFixed(2)} USDC`;
   soldEl.innerHTML = `${Math.round((params.start.balances[0]-balances[0])/params.start.balances[0]*100)}%`;
   raisedEl.innerHTML = `${formatMoney(balances[1] - params.start.balances[1], 0)}`;
   if (!init) {
@@ -366,7 +364,7 @@ async function main() {
       handleScale: false,
       localization: {
         priceFormatter: price => price.toFixed(4),
-        timeFormatter: timestamp => moment.unix(timestamp).format('D.M. H:mm')
+        timeFormatter: timestamp => moment.unix(timestamp).format('DD.MM. HH:mm')
       },
       layout: {
         textColor: "#FF55FF",
@@ -431,7 +429,7 @@ async function main() {
     const pool = await fetchPool();
     const [swaps, lastPrice] = await Promise.all([
         fetchAllSwaps(Number(pool.swapsCount)),
-        null //getLatestPrice()
+        getLatestPrice(),
     ]);
 
     const holders = swaps.map((swap) => {
@@ -469,11 +467,11 @@ async function main() {
       });
     }
     // final price hardcoded
-    updatePrice({
-      timestamp: params.start.time,
-      price: 0.0806,
-      deltas: [0, 0],
-    });
+    // updatePrice({
+    //   timestamp: params.start.time,
+    //   price: 0.0806,
+    //   deltas: [0, 0],
+    // });
     const now = moment().unix();
     if (lastPrice && now >= params.start.time) {
       updatePrice({
