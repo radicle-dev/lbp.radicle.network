@@ -294,18 +294,22 @@ function updatePrice(swap) {
   }
 }
 
-async function refreshTime() {
-  const now = moment().unix();
+async function refreshBlocktime() {
   const currentBlock = await provider.getBlock('latest');
   const timeOfBlock = async block => block > currentBlock.number
       ? currentBlock.timestamp + Math.round((block - currentBlock.number) * blockTime)
       : (await provider.getBlock(block)).timestamp;
   [params.start.time, params.end.time] = await Promise.all([timeOfBlock(params.start.block), timeOfBlock(params.end.block)]);
+}
+
+async function refreshTime() {
+  const now = moment().unix();
   timeEl.innerHTML = moment.duration(params.end.time - now, 'seconds').format("HH:mm:ss");
 }
 
 async function main() {
-  await refreshTime();
+  await refreshBlocktime();
+
   weights = (() => {
     const start = params.start.weights;
     const end = params.end.weights;
@@ -510,7 +514,8 @@ async function main() {
   //   console.log('swap!', swap.deltas);
   //   updatePrice(swap);
   // });
-  setInterval(refreshTime, 20000);
+  setInterval(refreshBlocktime, 10000);
+  setInterval(refreshTime, 1000);
 }
 
 main();
