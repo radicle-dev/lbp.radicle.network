@@ -13,8 +13,8 @@ const crpAddress = "0x750dD34Fb165bE682fAe445793AB9ab9729CDAa3";
 const bPoolAddress = "0x824603f89e27af953cab03a82017e4a74dd4df73";
 
 const stablecoin = "USDC";
-const usdcAddress = "0xA0b86991c6218b36c1d19D4a2e9Eb0cE3606eB48";
-const radAddress = "0x31c8EAcBFFdD875c74b94b077895Bd78CF1E64A3";
+const usdcAddress = "0xa0b86991c6218b36c1d19d4a2e9eb0ce3606eb48"
+const radAddress = "0x31c8eacbffdd875c74b94b077895bd78cf1e64a3";
 
 const graphApi =
   "https://api.thegraph.com/subgraphs/name/balancer-labs/balancer";
@@ -428,11 +428,32 @@ async function main() {
 
   try {
     const pool = await fetchPool();
-    holderEl.innerHTML = `${pool.holdersCount}`
     const [swaps, lastPrice] = await Promise.all([
         fetchAllSwaps(Number(pool.swapsCount)),
         null //getLatestPrice()
     ]);
+
+    const holders = swaps.map((swap) => {
+      let rads = parseFloat(swap.tokenAmountIn);
+
+      if (swap.tokenIn === usdcAddress) {
+        rads = parseFloat(swap.tokenAmountOut);
+      }
+
+      return { addr: swap.userAddress.id, rads: rads };
+    }).reduce((acc, entry) => {
+      if (acc[entry.addr]) {
+        acc[entry.addr] += entry.rads;
+      } else {
+        acc[entry.addr] = entry.rads;
+      }
+
+      return acc;
+    }, {});
+
+    holderEl.innerHTML = Object.keys(holders).filter((key) => holders[key] >=
+      0.0).length.toString();
+
     const past = swaps.filter(s => s.timestamp >= params.start.time);
     if (past.length) {
       let last = past.pop();
@@ -467,7 +488,7 @@ async function main() {
 
     document.getElementById("dataz").style.display = "block";
   } catch (err) {
-    // whoop whoop
+    console.error(err);
   }
   resize();
 
