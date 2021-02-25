@@ -301,9 +301,7 @@ async function refreshTime() {
       ? currentBlock.timestamp + Math.round((block - currentBlock.number) * blockTime)
       : (await provider.getBlock(block)).timestamp;
   [params.start.time, params.end.time] = await Promise.all([timeOfBlock(params.start.block), timeOfBlock(params.end.block)]);
-  const startIn = moment.duration(params.start.time - now, 'seconds');
-  const endIn = moment.duration(params.end.time - now, 'seconds');
-  timeEl.innerHTML = `${parseInt(endIn.asHours())}:${endIn.minutes()}:${endIn.seconds()}`;
+  timeEl.innerHTML = moment.duration(params.end.time - now, 'seconds').format("HH:mm:ss");
 }
 
 async function main() {
