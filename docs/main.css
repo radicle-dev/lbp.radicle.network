@@ -345,6 +345,7 @@ h3 {
 }
 
 #faq ol > li,
+#faq ul > li,
 #faq dt,
 #faq dd {
   color: var(--color-foreground-level-5);
