@@ -23,6 +23,11 @@ h5,
   color: black;
 }
 
+#explode {
+  position: relative;
+  overflow: hidden;
+}
+
 .particle {
   position: absolute;
   pointer-events: none;
@@ -182,6 +187,7 @@ h2 {
     font-size: 300px;
   }
 }
+
 .graph {
   max-width: 77.5rem;
   position: relative;
@@ -191,7 +197,7 @@ h2 {
 
 #price-prediction {
   max-width: 77.5rem;
-  max-height: 30rem;
+  height: 100%;
 }
 
 .ticker {

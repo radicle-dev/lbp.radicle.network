@@ -5,7 +5,7 @@ class Fountain {
     this.limit = 35;
     this.particles = [];
     this.autoAddParticle = false;
-    this.height = document.documentElement.clientHeight;
+    this.height = document.documentElement.scrollHeight;
     this.sizes = [15, 20, 25, 35, 45];
     this.variants = ["🌈", "🌱", "🌱", "🌱", "🌱", "🌱", "🌿", "🌵", "🌳", "🍃", "🌴", "🍀"];
     this.addHandlers();
@@ -24,13 +24,13 @@ class Fountain {
 
   addHandlers() {
     const isTouchInteraction =
-      "ontouchstart" in document.getElementById('emoji-pop');
+      "ontouchstart" in window || navigator.msMaxTouchPoints;
 
     const tap = isTouchInteraction ? "touchstart" : "mousedown";
     const tapEnd = isTouchInteraction ? "touchend" : "mouseup";
     const move = isTouchInteraction ? "touchmove" : "mousemove";
 
-    document.getElementById('emoji-pop').addEventListener(
+    document.addEventListener(
       move,
       (e) => {
         this.mouseX = e.pageX || e.touches[0].pageX;
@@ -39,17 +39,17 @@ class Fountain {
       { passive: false }
     );
 
-    document.getElementById('emoji-pop').addEventListener(tap, (e) => {
+    document.addEventListener(tap, (e) => {
       this.mouseX = e.pageX || e.touches[0].pageX;
       this.mouseY = e.pageY || e.touches[0].pageY;
       this.autoAddParticle = true;
     });
 
-    document.getElementById('emoji-pop').addEventListener(tapEnd, () => {
+    document.addEventListener(tapEnd, () => {
       this.autoAddParticle = false;
     });
 
-    document.getElementById('emoji-pop').addEventListener("mouseleave", () => {
+    document.addEventListener("mouseleave", () => {
       this.autoAddParticle = false;
     });
   }

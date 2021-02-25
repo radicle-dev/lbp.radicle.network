@@ -308,9 +308,6 @@ async function refreshTime() {
   } else {
     timeEl.innerHTML = `${endIn.days()}:${endIn.hours()}:${endIn.minutes()}:${endIn.seconds()}`;
   }
-  console.log('ends in', `${endIn.hours()} hours ${endIn.minutes()} minutes ${endIn.seconds()} seconds`);
-  document.getElementsByClassName('start')[0].innerHTML = startIn > 0 ? `start in ${startIn.humanize()}` : 'started';
-  document.getElementsByClassName('end')[0].innerHTML = endIn > 0 ? `end in ${endIn.humanize()}` : 'ended';
 }
 
 async function main() {
