@@ -187,8 +187,11 @@ async function fetchSwaps(lastTimestamp) {
       query: `
                 query {
                   pools(where: {id: "${bPoolAddress}"}) {
-                    swaps(first: 1000, orderBy: timestamp, orderDirection: asc,
-                    where: { timestamp_gte: ${lastTimestamp} }) {
+                    swaps(
+                      first: 1000,
+                      orderBy: timestamp, orderDirection: asc,
+                      where: { timestamp_gte: ${lastTimestamp} },
+                    ) {
                       timestamp
                       id
                       tokenIn
@@ -300,7 +303,7 @@ async function refreshTime() {
   [params.start.time, params.end.time] = await Promise.all([timeOfBlock(params.start.block), timeOfBlock(params.end.block)]);
   const startIn = moment.duration(params.start.time - now, 'seconds');
   const endIn = moment.duration(params.end.time - now, 'seconds');
-  timeEl.innerHTML = `${endIn.days()}:${endIn.hours()}:${endIn.minutes()}:${endIn.seconds()}`;
+  timeEl.innerHTML = `${parseInt(endIn.asHours())}:${endIn.minutes()}:${endIn.seconds()}`;
 }
 
 async function main() {
@@ -424,12 +427,10 @@ async function main() {
   try {
     const pool = await fetchPool();
     holderEl.innerHTML = `${pool.holdersCount}`
-    console.log(pool.holdersCount)
     const [swaps, lastPrice] = await Promise.all([
         fetchAllSwaps(Number(pool.swapsCount)),
         null //getLatestPrice()
     ]);
-    console.log(swaps, lastPrice);
     const past = swaps.filter(s => s.timestamp >= params.start.time);
     if (past.length) {
       let last = past.pop();
