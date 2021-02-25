@@ -307,6 +307,29 @@ function refreshTime() {
 
 let holders = {};
 
+function updateHolder(entry) {
+  if (holders[entry.addr]) {
+    holders[entry.addr] += entry.rads;
+  } else {
+    holders[entry.addr] = entry.rads;
+  }
+}
+
+function updateHoldersCount() {
+  holderEl.innerHTML = Object.keys(holders).filter((key) => holders[key] >=
+    0.0).length.toString();
+}
+
+function swapToEntry(swap) {
+  let rads = parseFloat(swap.tokenAmountIn);
+
+  if (swap.tokenIn === usdcAddress) {
+    rads = parseFloat(swap.tokenAmountOut);
+  }
+
+  return { addr: swap.userAddress.id, rads: rads };
+}
+
 async function main() {
   await refreshBlocktime();
   refreshTime();
@@ -434,15 +457,7 @@ async function main() {
         getLatestPrice(),
     ]);
 
-    holders = swaps.map((swap) => {
-      let rads = parseFloat(swap.tokenAmountIn);
-
-      if (swap.tokenIn === usdcAddress) {
-        rads = parseFloat(swap.tokenAmountOut);
-      }
-
-      return { addr: swap.userAddress.id, rads: rads };
-    }).reduce((acc, entry) => {
+    holders = swaps.map(swapToEntry).reduce((acc, entry) => {
       if (acc[entry.addr]) {
         acc[entry.addr] += entry.rads;
       } else {
@@ -452,8 +467,7 @@ async function main() {
       return acc;
     }, {});
 
-    holderEl.innerHTML = Object.keys(holders).filter((key) => holders[key] >=
-      0.0).length.toString();
+    updateHoldersCount();
 
     const past = swaps.filter(s => s.timestamp >= params.start.time);
     if (past.length) {
@@ -493,49 +507,57 @@ async function main() {
   }
   resize();
 
-  // const lbp = new ethers.Contract(crpAddress, lAbi, provider);
-  // const bpool = new ethers.Contract(bPoolAddress, pAbi, provider);
-  // lbp.on({topics: ['0xe211b87500000000000000000000000000000000000000000000000000000000'] }, async () => {
-  //   console.log('poked!');
-  //   updatePrice({
-  //     timestamp: moment().unix(),
-  //     price: await getLatestPrice(),
-  //     deltas: [0, 0]
-  //   })
-  // })
-  // bpool.on('LOG_SWAP', async (id, tokenIn, tokenOut, tokenAmountIn, tokenAmountOut, { blockNumber }) => {
-  //   const [tokenInSym, tokenOutSym] = [tokenIn, tokenOut]
-  //       .map(token => token.toLowerCase() === usdcAddress.toLowerCase() ? 'USDC' : 'RAD');
-  //   if (tokenIn.toLowerCase() === usdcAddress.toLowerCase()) {
-  //     [tokenAmountIn, tokenAmountOut] = [
-  //       ethers.utils.formatUnits(tokenAmountIn),
-  //       ethers.utils.formatUnits(tokenAmountOut, 12)
-  //     ];
-  //   } else {
-  //     [tokenAmountIn, tokenAmountOut] = [
-  //       ethers.utils.formatUnits(tokenAmountIn, 12),
-  //       ethers.utils.formatUnits(tokenAmountOut)
-  //     ];
-  //   }
-  //   let timestamp;
-  //   try {
-  //     timestamp = (await provider.getBlock(blockNumber)).timestamp || moment().unix();
-  //   } catch (e) {
-  //     timestamp = moment().unix();
-  //   }
-  //   const swap = calculateSwap({
-  //     userAddress: { id },
-  //     timestamp,
-  //     tokenIn,
-  //     tokenOut,
-  //     tokenInSym,
-  //     tokenOutSym,
-  //     tokenAmountIn,
-  //     tokenAmountOut
-  //   });
-  //   console.log('swap!', swap.deltas);
-  //   updatePrice(swap);
-  // });
+  const lbp = new ethers.Contract(crpAddress, lAbi, provider);
+  const bpool = new ethers.Contract(bPoolAddress, pAbi, provider);
+  lbp.on({topics: ['0xe211b87500000000000000000000000000000000000000000000000000000000'] }, async () => {
+    console.log('poked!');
+    updatePrice({
+      timestamp: moment().unix(),
+      price: await getLatestPrice(),
+      deltas: [0, 0]
+    })
+  })
+
+  bpool.on('LOG_SWAP', async (id, tokenIn, tokenOut, tokenAmountIn,
+    tokenAmountOut, ps) => {
+    console.log('swap!');
+    const blockNumber = ps.blockNumber;
+
+    const [tokenInSym, tokenOutSym] = [tokenIn, tokenOut]
+        .map(token => token.toLowerCase() === usdcAddress.toLowerCase() ? 'USDC' : 'RAD');
+
+    if (tokenIn.toLowerCase() === usdcAddress.toLowerCase()) {
+      [tokenAmountIn, tokenAmountOut] = [
+        ethers.utils.formatUnits(tokenAmountIn, 6),
+        ethers.utils.formatUnits(tokenAmountOut)
+      ];
+    } else {
+      [tokenAmountIn, tokenAmountOut] = [
+        ethers.utils.formatUnits(tokenAmountIn),
+        ethers.utils.formatUnits(tokenAmountOut, 6)
+      ];
+    }
+
+    let timestamp;
+    try {
+      timestamp = (await provider.getBlock(blockNumber)).timestamp || moment().unix();
+    } catch (e) {
+      timestamp = moment().unix();
+    }
+    const swap = calculateSwap({
+      userAddress: { id },
+      timestamp,
+      tokenIn,
+      tokenOut,
+      tokenInSym,
+      tokenOutSym,
+      tokenAmountIn,
+      tokenAmountOut
+    });
+    updateHolder(swapToEntry(swap));
+    updateHoldersCount();
+    updatePrice(swap);
+  });
 
   setInterval(refreshBlocktime, 10000);
   setInterval(refreshTime, 1000);
