@@ -10,8 +10,7 @@ const blockTime = 13.5;
 const diagramId = "price-prediction";
 
 const crpAddress = "0x750dD34Fb165bE682fAe445793AB9ab9729CDAa3";
-// TODO(xla): Get bPool address once sale has been executed.
-const bPoolAddress = "0xf014fc5d0f02c19d617a30a745ab86a8ca32c92f";
+const bPoolAddress = "0x824603F89e27aF953cAB03a82017e4a74dd4Df73";
 
 const stablecoin = "USDC";
 const usdcAddress = "0xA0b86991c6218b36c1d19D4a2e9Eb0cE3606eB48";
@@ -24,17 +23,15 @@ const bucket = 1600;
 const params = {
 
   start: {
-    // TODO(xla): Enter correct start block once sale executed.
-    block: 11817006,
-    time: 1612800000,
+    block: 11927446,
+    time: 1614271143,
     weights: [37, 3],
     balances: [3750000, 3500000],
   },
 
   end: {
-    // TODO(xla): Enter correct end block based on correct start block.
-    block: 11836793,
-    time: 1613059200,
+    block: 11927446 + 12800 + 266,
+    time: 1614443943,
     weights: [20, 20],
   },
 };
