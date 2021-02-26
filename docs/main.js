@@ -321,14 +321,13 @@ function updateHoldersCount() {
 }
 
 function swapToEntry(swap) {
-  console.log(swap);
   let rads = parseFloat(swap.tokenAmountIn);
 
   if (swap.tokenIn === usdcAddress) {
-    rads = parseFloat(swap.tokenAmountOut);
+    rads = parseFloat(swap.tokenAmountOut) * -1.0;
   }
 
-  return { addr: swap.userAddress.id, rads: rads };
+  return { addr: swap.userAddress.id.toLowerCase(), rads: rads };
 }
 
 async function main() {
@@ -460,15 +459,7 @@ async function main() {
         getLatestPrice(),
     ]);
 
-    holders = swaps.map(swapToEntry).reduce((acc, entry) => {
-      if (acc[entry.addr]) {
-        acc[entry.addr] += entry.rads;
-      } else {
-        acc[entry.addr] = entry.rads;
-      }
-
-      return acc;
-    }, {});
+    swaps.map(swapToEntry).forEach(updateHolder);
 
     updateHoldersCount();
 
@@ -525,6 +516,9 @@ async function main() {
     tokenAmountOut, ps) => {
     console.log('swap!');
     const blockNumber = ps.blockNumber;
+    const tx = await ps.getTransaction();
+    
+    // const from = await ps.getTransaction().from;
 
     const [tokenInSym, tokenOutSym] = [tokenIn, tokenOut]
         .map(token => token.toLowerCase() === usdcAddress.toLowerCase() ? 'USDC' : 'RAD');
@@ -548,7 +542,7 @@ async function main() {
       timestamp = moment().unix();
     }
     const swap = calculateSwap({
-      userAddress: { id },
+      userAddress: { id: tx.from },
       timestamp,
       tokenIn,
       tokenOut,
