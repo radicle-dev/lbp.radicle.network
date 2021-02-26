@@ -323,7 +323,7 @@ function updateHoldersCount() {
 function swapToEntry(swap) {
   let rads = parseFloat(swap.tokenAmountIn);
 
-  if (swap.tokenIn === usdcAddress) {
+  if (swap.tokenIn === radAddress) {
     rads = parseFloat(swap.tokenAmountOut) * -1.0;
   }
 
