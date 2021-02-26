@@ -321,6 +321,7 @@ function updateHoldersCount() {
 }
 
 function swapToEntry(swap) {
+  console.log(swap);
   let rads = parseFloat(swap.tokenAmountIn);
 
   if (swap.tokenIn === usdcAddress) {
@@ -398,12 +399,14 @@ async function main() {
       timeScale: {
         lockVisibleTimeRangeOnResize: true,
         timeVisible: true,
-        barSpacing: 0.5,
+        barSpacing: 50,
       },
       priceScale: {
+        autoScale: true,
+        drawTicks: false,
         scaleMargins: {
-          top: 0.1,
-          bottom: 0,
+          top: 0.05,
+          bottom: 0.05,
         },
       },
       grid: {
@@ -484,8 +487,8 @@ async function main() {
     }
     // final price hardcoded
     // updatePrice({
-    //   timestamp: params.start.time,
-    //   price: 0.0806,
+    //   timestamp: params.end.time,
+    //   price: 1.5,
     //   deltas: [0, 0],
     // });
     const now = moment().unix();
