@@ -404,8 +404,8 @@ async function main() {
         autoScale: true,
         drawTicks: false,
         scaleMargins: {
-          top: 0.05,
-          bottom: 0.05,
+          top: 0.01,
+          bottom: 0.2,
         },
       },
       grid: {
