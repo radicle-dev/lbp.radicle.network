@@ -33,6 +33,8 @@ const params = {
     weights: [20, 20],
   },
 };
+const saleOngoing = false;
+
 let balances = params.start.balances;
 
 const defaultDiagramWidth = 1240;
@@ -302,7 +304,9 @@ async function refreshBlocktime() {
 
 function refreshTime() {
   const now = moment().unix();
-  timeEl.innerHTML = moment.duration(params.end.time - now, 'seconds').format("HH:mm:ss");
+  if (saleOngoing) {
+    timeEl.innerHTML = moment.duration(params.end.time - now, 'seconds').format("HH:mm:ss");
+  }
 }
 
 let holders = {};
@@ -517,7 +521,7 @@ async function main() {
     console.log('swap!');
     const blockNumber = ps.blockNumber;
     const tx = await ps.getTransaction();
-    
+
     // const from = await ps.getTransaction().from;
 
     const [tokenInSym, tokenOutSym] = [tokenIn, tokenOut]
