@@ -178,6 +178,7 @@ async function fetchPool() {
 }
 
 async function fetchSwaps(lastTimestamp) {
+  console.log(lastTimestamp);
   return fetch(graphApi, {
     method: "POST",
     headers: {
@@ -190,7 +191,8 @@ async function fetchSwaps(lastTimestamp) {
                     swaps(
                       first: 1000,
                       orderBy: timestamp, orderDirection: asc,
-                      where: { timestamp_gte: ${lastTimestamp} },
+                      where: { timestamp_gte: ${lastTimestamp}, timestamp_lte:
+                      1614500000 },
                     ) {
                       timestamp
                       id
@@ -281,7 +283,7 @@ function updatePrice(swap) {
   }
   balances = balances.map((b, i) => b + deltas[i]);
   swaps.push(swap);
-  priceEl.innerHTML = `${price.toFixed(2)} USDC`;
+  // priceEl.innerHTML = `${price.toFixed(2)} USDC`;
   soldEl.innerHTML = `${Math.round((params.start.balances[0]-balances[0])/params.start.balances[0]*100)}%`;
   raisedEl.innerHTML = `${formatMoney(balances[1] - params.start.balances[1], 0)}`;
   if (!init) {
@@ -304,9 +306,7 @@ async function refreshBlocktime() {
 
 function refreshTime() {
   const now = moment().unix();
-  if (saleOngoing) {
-    timeEl.innerHTML = moment.duration(params.end.time - now, 'seconds').format("HH:mm:ss");
-  }
+  // timeEl.innerHTML = moment.duration(params.end.time - now, 'seconds').format("HH:mm:ss");
 }
 
 let holders = {};
@@ -508,7 +508,7 @@ async function main() {
   const lbp = new ethers.Contract(crpAddress, lAbi, provider);
   const bpool = new ethers.Contract(bPoolAddress, pAbi, provider);
   lbp.on({topics: ['0xe211b87500000000000000000000000000000000000000000000000000000000'] }, async () => {
-    console.log('poked!');
+    // console.log('poked!');
     updatePrice({
       timestamp: moment().unix(),
       price: await getLatestPrice(),
@@ -518,7 +518,7 @@ async function main() {
 
   bpool.on('LOG_SWAP', async (id, tokenIn, tokenOut, tokenAmountIn,
     tokenAmountOut, ps) => {
-    console.log('swap!');
+    // console.log('swap!');
     const blockNumber = ps.blockNumber;
     const tx = await ps.getTransaction();
 
