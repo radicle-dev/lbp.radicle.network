@@ -178,7 +178,6 @@ async function fetchPool() {
 }
 
 async function fetchSwaps(lastTimestamp) {
-  console.log(lastTimestamp);
   return fetch(graphApi, {
     method: "POST",
     headers: {
@@ -487,17 +486,22 @@ async function main() {
     //   deltas: [0, 0],
     // });
     const now = moment().unix();
-    if (lastPrice && now >= params.start.time) {
-      updatePrice({
-        timestamp: now,
-        price: lastPrice,
-        deltas: [0, 0],
-      });
-    }
+    // if (lastPrice && now >= params.start.time) {
+    //   updatePrice({
+    //     timestamp: now,
+    //     price: lastPrice,
+    //     deltas: [0, 0],
+    //   });
+    // }
     series.chart.timeScale().setVisibleRange({
       from: params.start.time,
       to: params.end.time,
     });
+    // updatePrice({
+    //   timestamp: now,
+    //   price: 15.30,
+    //   deltas: [0, 0],
+    // });
 
     document.getElementById("dataz").style.display = "block";
   } catch (err) {
@@ -505,63 +509,63 @@ async function main() {
   }
   resize();
 
-  const lbp = new ethers.Contract(crpAddress, lAbi, provider);
-  const bpool = new ethers.Contract(bPoolAddress, pAbi, provider);
-  lbp.on({topics: ['0xe211b87500000000000000000000000000000000000000000000000000000000'] }, async () => {
-    // console.log('poked!');
-    updatePrice({
-      timestamp: moment().unix(),
-      price: await getLatestPrice(),
-      deltas: [0, 0]
-    })
-  })
+  // const lbp = new ethers.Contract(crpAddress, lAbi, provider);
+  // const bpool = new ethers.Contract(bPoolAddress, pAbi, provider);
+  // lbp.on({topics: ['0xe211b87500000000000000000000000000000000000000000000000000000000'] }, async () => {
+  //   // console.log('poked!');
+  //   updatePrice({
+  //     timestamp: moment().unix(),
+  //     price: await getLatestPrice(),
+  //     deltas: [0, 0]
+  //   })
+  // })
 
-  bpool.on('LOG_SWAP', async (id, tokenIn, tokenOut, tokenAmountIn,
-    tokenAmountOut, ps) => {
-    // console.log('swap!');
-    const blockNumber = ps.blockNumber;
-    const tx = await ps.getTransaction();
+  // bpool.on('LOG_SWAP', async (id, tokenIn, tokenOut, tokenAmountIn,
+  //   tokenAmountOut, ps) => {
+  //   // console.log('swap!');
+  //   const blockNumber = ps.blockNumber;
+  //   const tx = await ps.getTransaction();
 
-    // const from = await ps.getTransaction().from;
+  //   // const from = await ps.getTransaction().from;
 
-    const [tokenInSym, tokenOutSym] = [tokenIn, tokenOut]
-        .map(token => token.toLowerCase() === usdcAddress.toLowerCase() ? 'USDC' : 'RAD');
+  //   const [tokenInSym, tokenOutSym] = [tokenIn, tokenOut]
+  //       .map(token => token.toLowerCase() === usdcAddress.toLowerCase() ? 'USDC' : 'RAD');
 
-    if (tokenIn.toLowerCase() === usdcAddress.toLowerCase()) {
-      [tokenAmountIn, tokenAmountOut] = [
-        ethers.utils.formatUnits(tokenAmountIn, 6),
-        ethers.utils.formatUnits(tokenAmountOut)
-      ];
-    } else {
-      [tokenAmountIn, tokenAmountOut] = [
-        ethers.utils.formatUnits(tokenAmountIn),
-        ethers.utils.formatUnits(tokenAmountOut, 6)
-      ];
-    }
+  //   if (tokenIn.toLowerCase() === usdcAddress.toLowerCase()) {
+  //     [tokenAmountIn, tokenAmountOut] = [
+  //       ethers.utils.formatUnits(tokenAmountIn, 6),
+  //       ethers.utils.formatUnits(tokenAmountOut)
+  //     ];
+  //   } else {
+  //     [tokenAmountIn, tokenAmountOut] = [
+  //       ethers.utils.formatUnits(tokenAmountIn),
+  //       ethers.utils.formatUnits(tokenAmountOut, 6)
+  //     ];
+  //   }
 
-    let timestamp;
-    try {
-      timestamp = (await provider.getBlock(blockNumber)).timestamp || moment().unix();
-    } catch (e) {
-      timestamp = moment().unix();
-    }
-    const swap = calculateSwap({
-      userAddress: { id: tx.from },
-      timestamp,
-      tokenIn,
-      tokenOut,
-      tokenInSym,
-      tokenOutSym,
-      tokenAmountIn,
-      tokenAmountOut
-    });
-    updateHolder(swapToEntry(swap));
-    updateHoldersCount();
-    updatePrice(swap);
-  });
+  //   let timestamp;
+  //   try {
+  //     timestamp = (await provider.getBlock(blockNumber)).timestamp || moment().unix();
+  //   } catch (e) {
+  //     timestamp = moment().unix();
+  //   }
+  //   const swap = calculateSwap({
+  //     userAddress: { id: tx.from },
+  //     timestamp,
+  //     tokenIn,
+  //     tokenOut,
+  //     tokenInSym,
+  //     tokenOutSym,
+  //     tokenAmountIn,
+  //     tokenAmountOut
+  //   });
+  //   updateHolder(swapToEntry(swap));
+  //   updateHoldersCount();
+  //   updatePrice(swap);
+  // });
 
-  setInterval(refreshBlocktime, 10000);
-  setInterval(refreshTime, 1000);
+  // setInterval(refreshBlocktime, 10000);
+  // setInterval(refreshTime, 1000);
 }
 
 main();
